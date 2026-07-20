@@ -132,7 +132,7 @@ export default function InvisibleBookCard({ onTriggerCandyRain }) {
             <p>"Aunque para el mundo seas un libro abierto..."</p>
             <p>"Adoro saber que guardas páginas con tinta invisible..."</p>
             <p>"Cuya magia solo mis ojos pueden revelar."</p>
-            <p style={{ color: 'var(--purple-neon)', marginTop: '4px', fontSize: '0.7rem' }}>Te amo, Ness.</p>
+            <p style={{ color: 'var(--purple-neon)', marginTop: '4px', fontSize: '0.68rem', fontWeight: 'bold' }}>Qué lindo coincidir en esta historia, Ness.</p>
           </div>
 
           {/* Flashlight circle beam indicator (for when mouse is not hovering yet, or to guide) */}

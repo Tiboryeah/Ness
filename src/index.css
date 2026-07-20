@@ -4,27 +4,27 @@
    ========================================== */
 
 :root {
-  --bg-dark: #07070a;
+  --bg-dark: #0f0507;
   --bg-card: rgba(255, 255, 255, 0.03);
   --border-color: rgba(255, 255, 255, 0.08);
   
-  /* Pink */
-  --pink-neon: #ff2a7a;
-  --pink-light: #ff758f;
-  --pink-pastel: #fbb1bd;
+  /* Wine & Rose */
+  --pink-neon: #a11d33;
+  --pink-light: #c73e55;
+  --pink-pastel: #e8a7b0;
   
-  /* Purple */
-  --purple-neon: #9d4edd;
-  --purple-dark: #3c096c;
-  --purple-mid: #7b2cbf;
+  /* Old Gold / Vintage */
+  --purple-neon: #d4af37;
+  --purple-dark: #58111a;
+  --purple-mid: #8a1c2e;
   
-  /* Black */
+  /* Cream / Black */
   --black-solid: #000000;
-  --black-soft: #121214;
+  --black-soft: #12090b;
   
   /* Fonts */
   --font-primary: 'Outfit', sans-serif;
-  --font-cursive: 'Sacramento', cursive;
+  --font-cursive: 'Great Vibes', cursive; /* A more romantic cursive font */
   --font-serif: 'Playfair Display', serif;
   
   --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);

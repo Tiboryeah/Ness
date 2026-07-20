@@ -2,11 +2,13 @@ import React from 'react';
 import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX } from 'lucide-react';
 import { playClickSynth } from '../utils/audio';
 
-export default function MusicPlayer({ isPlaying, isMuted, statusText, togglePlay, toggleMute, seekRelative }) {
+export default function MusicPlayer({ isPlaying, isMuted, statusText, togglePlay, toggleMute, seekRelative, currentTrack }) {
   return (
     <div className="mini-player glass">
       <div className="music-info">
-        <span className="music-title">Fake Love - BTS</span>
+        <span className="music-title">
+          {currentTrack === 'oasis' ? 'Wonderwall - Oasis' : 'Love of My Life - Queen'}
+        </span>
         <span className="music-status">{statusText}</span>
       </div>
       <div className="player-controls">

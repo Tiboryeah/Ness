@@ -10,7 +10,7 @@ export default function ParticleBackground() {
     const ctx = canvas.getContext('2d');
     let animationFrameId;
     let particlesArray = [];
-    const colours = ['#ff758f', '#ff2a7a', '#9d4edd', '#7b2cbf', '#fbb1bd'];
+    const colours = ['#800020', '#c73e55', '#e8a7b0', '#d4af37', '#fdf5e6'];
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -23,21 +23,32 @@ export default function ParticleBackground() {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height + canvas.height;
-        this.size = Math.random() * 6 + 2;
-        this.speedX = Math.random() * 1.5 - 0.75;
-        this.speedY = -(Math.random() * 1.5 + 0.5);
+        this.type = Math.random() > 0.5 ? 'bubble' : 'key';
+        
+        // Keys can be slightly larger to make details visible
+        this.size = this.type === 'key' ? Math.random() * 6 + 7 : Math.random() * 7 + 4;
+        
+        this.speedX = Math.random() * 0.8 - 0.4;
+        // Bubbles rise slightly faster, keys drift slowly
+        this.speedY = this.type === 'bubble' ? -(Math.random() * 0.8 + 0.4) : -(Math.random() * 0.5 + 0.2);
+        
         this.color = colours[Math.floor(Math.random() * colours.length)];
-        this.opacity = Math.random() * 0.5 + 0.2;
-        this.type = Math.random() > 0.5 ? 'bts' : 'heart';
+        this.opacity = this.type === 'bubble' ? Math.random() * 0.25 + 0.15 : Math.random() * 0.35 + 0.25;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.spin = Math.random() * 0.015 - 0.0075;
       }
 
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
+        
+        if (this.type === 'key') {
+          this.rotation += this.spin;
+        }
 
         // reset to bottom if out of view
-        if (this.y < -20) {
-          this.y = canvas.height + 20;
+        if (this.y < -30) {
+          this.y = canvas.height + 30;
           this.x = Math.random() * canvas.width;
         }
       }
@@ -45,46 +56,59 @@ export default function ParticleBackground() {
       draw() {
         ctx.save();
         ctx.globalAlpha = this.opacity;
-        ctx.fillStyle = this.color;
 
-        if (this.type === 'heart') {
+        if (this.type === 'bubble') {
+          // Draw translucent bubble with outline
           ctx.beginPath();
-          ctx.moveTo(this.x, this.y);
-          ctx.bezierCurveTo(
-            this.x - this.size, this.y - this.size, 
-            this.x - this.size * 1.8, this.y + this.size * 0.5, 
-            this.x, this.y + this.size * 2
+          const bubbleGrad = ctx.createRadialGradient(
+            this.x - this.size * 0.3, this.y - this.size * 0.3, this.size * 0.1,
+            this.x, this.y, this.size
           );
-          ctx.bezierCurveTo(
-            this.x + this.size * 1.8, this.y + this.size * 0.5, 
-            this.x + this.size, this.y - this.size, 
-            this.x, this.y
-          );
+          bubbleGrad.addColorStop(0, 'rgba(255, 255, 255, 0.35)');
+          bubbleGrad.addColorStop(0.3, 'rgba(212, 175, 55, 0.06)'); // subtle gold tint
+          bubbleGrad.addColorStop(0.7, 'rgba(199, 62, 85, 0.08)');  // subtle wine tint
+          bubbleGrad.addColorStop(1, 'rgba(255, 255, 255, 0.03)');
+          
+          ctx.fillStyle = bubbleGrad;
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
+          ctx.lineWidth = 1;
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+
+          // Highlight dot
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+          ctx.arc(this.x - this.size * 0.35, this.y - this.size * 0.35, this.size * 0.18, 0, Math.PI * 2);
           ctx.fill();
         } else {
-          const hw = this.size * 0.9;
-          const hh = this.size * 1.1;
-          const gap = hw * 0.22;
-          const outerH = hh;
-          const innerH = hh * 0.75;
+          // Draw Victorian Key
+          ctx.translate(this.x, this.y);
+          ctx.rotate(this.rotation);
+          ctx.strokeStyle = this.color;
+          ctx.fillStyle = this.color;
+          ctx.lineWidth = 1.2;
 
-          // Draw Left Door
-          ctx.beginPath();
-          ctx.moveTo(this.x - hw, this.y - outerH);
-          ctx.lineTo(this.x - gap, this.y - innerH);
-          ctx.lineTo(this.x - gap, this.y + innerH);
-          ctx.lineTo(this.x - hw, this.y + outerH);
-          ctx.closePath();
-          ctx.fill();
+          const s = this.size / 6; // scaling factor
 
-          // Draw Right Door
+          // Key handle (bow) - double loops
           ctx.beginPath();
-          ctx.moveTo(this.x + gap, this.y - innerH);
-          ctx.lineTo(this.x + hw, this.y - outerH);
-          ctx.lineTo(this.x + hw, this.y + outerH);
-          ctx.lineTo(this.x + gap, this.y + innerH);
-          ctx.closePath();
-          ctx.fill();
+          ctx.arc(0, -6 * s, 4 * s, 0, Math.PI * 2);
+          ctx.stroke();
+          
+          ctx.beginPath();
+          ctx.arc(0, -6 * s, 1.8 * s, 0, Math.PI * 2);
+          ctx.stroke();
+
+          // Shaft
+          ctx.beginPath();
+          ctx.moveTo(0, -2 * s);
+          ctx.lineTo(0, 10 * s);
+          ctx.stroke();
+
+          // Teeth (bit)
+          ctx.fillRect(0, 5 * s, 3.5 * s, 1.8 * s);
+          ctx.fillRect(0, 7.8 * s, 2.5 * s, 1.8 * s);
         }
         ctx.restore();
       }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import Card from '../Card';
-import { playClickSynth, playChimeSynth } from '../../utils/audio';
+import { playClickSynth } from '../../utils/audio';
 
 export default function InvisibleBookCard({ onTriggerCandyRain }) {
   const [uvOn, setUvOn] = useState(false);

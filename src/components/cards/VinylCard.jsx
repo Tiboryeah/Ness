@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Disc } from 'lucide-react';
 import Card from '../Card';
 import { playClickSynth } from '../../utils/audio';

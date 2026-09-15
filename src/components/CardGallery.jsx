@@ -1,36 +1,42 @@
 import React from 'react';
-import FlowerCard from './cards/FlowerCard';
-import LipstickCard from './cards/LipstickCard';
-import CoffeeCard from './cards/CoffeeCard';
-import RaccoonCard from './cards/RaccoonCard';
-import VinylCard from './cards/VinylCard';
-import BookcaseCard from './cards/BookcaseCard';
-import VictorianCard from './cards/VictorianCard';
-import GrapesCard from './cards/GrapesCard';
-import LetterCard from './cards/LetterCard';
-import InvisibleBookCard from './cards/InvisibleBookCard';
+import CatCard from './cards/CatCard';
+import FruitCard from './cards/FruitCard';
+import TokyoGhoulCard from './cards/TokyoGhoulCard';
+import RockSkaCard from './cards/RockSkaCard';
+import FlowersCard from './cards/FlowersCard';
+import CuteCornerCard from './cards/CuteCornerCard';
+import LoveLetterCard from './cards/LoveLetterCard';
+import MarineCard from './cards/MarineCard';
+import SecretCard from './cards/SecretCard';
 
-export default function CardGallery({ isPlaying, onTriggerCandyRain, currentTrack, onTrackChange }) {
+export default function CardGallery({ isPlaying, onTogglePlay, currentTrack, onTrackChange, onTriggerCandyRain, onSecretUnlock }) {
   return (
     <section className="gallery-section">
-      <h2 className="section-title text-center" style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', marginBottom: '10px' }}>
-        El Mundo de Ness
-      </h2>
-      <p className="section-subtitle text-center" style={{ color: 'var(--pink-pastel)', marginBottom: '50px' }}>
-        Pasa el cursor o haz clic en cada tarjeta para interactuar con sus pasiones y secretos.
-      </p>
+      <div className="gallery-header-block text-center">
+        <span className="section-kicker">Colección · 01—09</span>
+        <h2 className="section-title">
+          El mundo de<br /><em>Ratita</em>
+        </h2>
+        <p className="section-subtitle">
+          Nueve fragmentos interactivos. Algunos se muestran; otros esperan ser recordados.
+        </p>
+      </div>
       
       <div className="cards-grid">
-        <FlowerCard />
-        <LipstickCard />
-        <CoffeeCard />
-        <RaccoonCard />
-        <VinylCard isPlaying={isPlaying} currentTrack={currentTrack} onTrackChange={onTrackChange} />
-        <BookcaseCard />
-        <VictorianCard />
-        <GrapesCard />
-        <LetterCard />
-        <InvisibleBookCard onTriggerCandyRain={onTriggerCandyRain} />
+        <CatCard />
+        <FruitCard />
+        <TokyoGhoulCard />
+        <RockSkaCard 
+          isPlaying={isPlaying} 
+          onTogglePlay={onTogglePlay}
+          currentTrack={currentTrack} 
+          onTrackChange={onTrackChange} 
+        />
+        <FlowersCard />
+        <CuteCornerCard onTriggerCandyRain={onTriggerCandyRain} />
+        <LoveLetterCard />
+        <MarineCard />
+        <SecretCard onUnlock={onSecretUnlock} />
       </div>
     </section>
   );

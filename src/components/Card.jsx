@@ -1,30 +1,42 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export default function Card({ id, icon, title, desc, children }) {
   const cardRef = useRef(null);
+  const frameRef = useRef(null);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        card.classList.add('is-visible');
+        observer.disconnect();
+      }
+    }, { threshold: 0.14 });
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, []);
 
   const handleMouseMove = (e) => {
     const card = cardRef.current;
-    if (!card) return;
-    
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    card.style.setProperty('--mouse-x', `${x}px`);
-    card.style.setProperty('--mouse-y', `${y}px`);
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -5; // tilt max 5 degrees
-    const rotateY = ((x - centerX) / centerX) * 5;
-    
-    card.style.transform = `perspective(1000px) translateY(-5px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    if (!card || !window.matchMedia('(pointer: fine)').matches) return;
+    if (frameRef.current) cancelAnimationFrame(frameRef.current);
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+    frameRef.current = requestAnimationFrame(() => {
+      const rect = card.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+      card.style.transform = `perspective(1200px) translateY(-6px) rotateX(${((y / rect.height) - .5) * -3}deg) rotateY(${((x / rect.width) - .5) * 3}deg)`;
+    });
   };
 
   const handleMouseLeave = () => {
     const card = cardRef.current;
     if (!card) return;
+    if (frameRef.current) cancelAnimationFrame(frameRef.current);
     card.style.transform = 'none';
   };
 

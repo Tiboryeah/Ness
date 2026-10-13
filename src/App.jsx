@@ -15,7 +15,7 @@ export default function App() {
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(25);
   const [statusText, setStatusText] = useState('Pausado');
-  const [currentTrack, setCurrentTrack] = useState('laley'); // Primary track: La Ley - El Duelo
+  const [currentTrack, setCurrentTrack] = useState('loveofmylife'); // Canción inicial del cumpleaños: Queen - Love of My Life
   const audioRef = useRef(null);
 
   // Falling particles / Confetti rain
@@ -25,7 +25,7 @@ export default function App() {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = 0.25;
-      audioRef.current.src = TRACK_METADATA.laley.url;
+      audioRef.current.src = TRACK_METADATA.loveofmylife.url;
     }
   }, []);
 

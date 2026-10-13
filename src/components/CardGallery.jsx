@@ -8,24 +8,40 @@ import CuteCornerCard from './cards/CuteCornerCard';
 import LoveLetterCard from './cards/LoveLetterCard';
 import MarineCard from './cards/MarineCard';
 import SecretCard from './cards/SecretCard';
+import BirthdayEngagementCard from './cards/BirthdayEngagementCard';
 
-export default function CardGallery({ isPlaying, onTogglePlay, currentTrack, onTrackChange, onTriggerCandyRain, onSecretUnlock }) {
+export default function CardGallery({ 
+  isPlaying, 
+  onTogglePlay, 
+  currentTrack, 
+  onTrackChange, 
+  onTriggerCandyRain, 
+  onSecretUnlock 
+}) {
   return (
     <section className="gallery-section">
       <div className="gallery-header-block text-center">
-        <span className="section-kicker">Colección · 01—09</span>
+        <span className="section-kicker">Colección Especial · 01—10</span>
         <h2 className="section-title">
           El mundo de<br /><em>Ratita</em>
         </h2>
         <p className="section-subtitle">
-          Nueve fragmentos interactivos. Algunos se muestran; otros esperan ser recordados.
+          Diez fragmentos interactivos. Celebrando tu cumpleaños número especial y el comienzo de nuestro para siempre.
         </p>
       </div>
-      
+
       <div className="cards-grid">
+        <BirthdayEngagementCard 
+          onTriggerBirthdayRain={onTriggerCandyRain}
+          onPlaySong={(track) => onTrackChange(track, true)}
+          isPlaying={isPlaying}
+          currentTrack={currentTrack}
+        />
+
         <CatCard />
         <FruitCard />
         <TokyoGhoulCard />
+
         <RockSkaCard 
           isPlaying={isPlaying} 
           onTogglePlay={onTogglePlay}
@@ -33,6 +49,7 @@ export default function CardGallery({ isPlaying, onTogglePlay, currentTrack, onT
           onTrackChange={onTrackChange} 
         />
         <FlowersCard />
+
         <CuteCornerCard onTriggerCandyRain={onTriggerCandyRain} />
         <LoveLetterCard />
         <MarineCard />

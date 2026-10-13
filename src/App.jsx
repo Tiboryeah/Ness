@@ -29,7 +29,7 @@ export default function App() {
     }
   }, []);
 
-  // Unlock and play audio
+  // Unlock and play audio + celebrate
   const handleStart = () => {
     setStarted(true);
     if (audioRef.current) {
@@ -41,6 +41,10 @@ export default function App() {
         console.warn("Audio play on start prevented by browser:", err);
       });
     }
+    // Launch celebratory birthday shower upon entering
+    setTimeout(() => {
+      triggerCandyRain();
+    }, 400);
   };
 
   const togglePlay = () => {
@@ -121,13 +125,13 @@ export default function App() {
     handleTrackChange('secret', true);
   };
 
-  // Candy shower with SVG vectors (ZERO emojis)
+  // Dark-Gothic & Punk Celebration shower with SVG vectors (ZERO emojis)
   const triggerCandyRain = () => {
     playChimeSynth();
-    const numCandies = 40;
-    const shapes = ['heart', 'star', 'sparkle', 'petal'];
-    // Palette: Morado, Verde Esmeralda, Rosa Pastel, Blanco Nube
-    const colors = ['#a855f7', '#10b981', '#f472b6', '#34d399', '#c084fc', '#fbcfe8'];
+    const numCandies = 50;
+    const shapes = ['bat', 'cross', 'pin', 'ring', 'heart', 'star'];
+    // Goth & Punk Palette: Sangre Carmesí, Morado Nocturno, Plata Cromo, Negro Humo, Verde Veneno
+    const colors = ['#ef4444', '#dc2626', '#a855f7', '#7c3aed', '#94a3b8', '#f1f5f9', '#10b981', '#f43f5e'];
     
     for (let i = 0; i < numCandies; i++) {
       setTimeout(() => {
@@ -141,8 +145,8 @@ export default function App() {
 
         setTimeout(() => {
           setCandies((prev) => prev.filter((c) => c.id !== id));
-        }, 3200);
-      }, i * 65);
+        }, 3400);
+      }, i * 55);
     }
   };
 
@@ -170,20 +174,24 @@ export default function App() {
             onTrackChange={handleTrackChange}
             onNextTrack={handleNextTrack}
             onPrevTrack={handlePrevTrack}
+            onTriggerCelebration={triggerCandyRain}
           />
 
           <main className="container">
-            {/* Intro Welcome Card */}
+            {/* Intro Welcome Card with Birthday & Engagement dedication */}
             <section className="intro-card glass">
               <span className="intro-index" aria-hidden="true">00</span>
               <div className="intro-badge">
                 <Sparkles size={16} />
-                <span>Para Ratita</span>
+                <span>13 de Octubre · Edición Prometida</span>
               </div>
               <h2 className="intro-title">
-                Hay universos que<br />merecen ser <em>guardados.</em>
+                Hay universos que<br />merecen ser <em>celebrados.</em>
               </h2>
               <div className="intro-text">
+                <p className="intro-birthday-callout">
+                  <strong>¡Feliz Cumpleaños, mi amada Ratita!</strong> Hoy es 13 de octubre, y entre todas las fechas posibles, esta es la más sagrada para mí: el día en que nació la mujer que ilumina mi vida entera, y que ahora tengo el honor inmenso de llamar <strong>mi prometida</strong>.
+                </p>
                 <p>
                   Ratita, entre estas sombras he dejado escondidos pequeños fragmentos de tu mundo.
                 </p>
@@ -194,19 +202,16 @@ export default function App() {
                   También habitan aquí ciertas historias nacidas entre la oscuridad de Tokio, flores que parecen conocer secretos que nunca se pronuncian y pequeños rastros de esa ternura tuya que, incluso entre lo sombrío, insiste en permanecer intacta.
                 </p>
                 <p className="intro-accent-paragraph">
-                  Nada en este rincón está aquí por accidente.
+                  Hoy no solo celebro tu vida: celebro nuestro 'sí' y la promesa de caminar juntos hasta el último amanecer.
                 </p>
                 <p>
-                  Cada detalle guarda una pista, un recuerdo o una pequeña parte de ti.
+                  Cada detalle guarda una pista, un recuerdo, una melodía y un pedazo de mi alma dedicado a ti.
                 </p>
                 <p className="intro-whisper">
-                  Así que entra despacio...
-                </p>
-                <p>
-                  Quizá, mientras recorres este lugar, descubras que algunas cosas fueron hechas para ser encontradas.
+                  Pide un deseo frente al pastel, escucha nuestra música y disfruta tu rincón...
                 </p>
                 <p className="intro-closing-phrase">
-                  Y otras, simplemente, para hacerte saber que alguien se tomó el tiempo de recordarlas.
+                  Porque todo lo hermoso que existe en este lugar fue hecho para hacerte sonreír.
                 </p>
               </div>
             </section>
@@ -224,9 +229,10 @@ export default function App() {
             <aside className="gothic-encouragement" aria-label="Una nota para Ratita">
               <span className="gothic-note-wing wing-left" aria-hidden="true">†</span>
               <div className="gothic-note-inner">
-                <span className="gothic-note-kicker">UNA CERTEZA PARA GUARDAR</span>
+                <span className="gothic-note-kicker">DOS CERTEZAS PARA GUARDAR</span>
                 <p>“Estoy seguro que puedes entrar a estudiar música en Bellas Artes, confía en ti.”</p>
-                <span className="gothic-note-sign">— Tibo</span>
+                <p className="gothic-fiancee-quote">“Y tengo la certeza más hermosa de todas: eres el amor de mi vida, mi mejor decisión y la prometida más increíble del mundo.”</p>
+                <span className="gothic-note-sign">— Tibo, tu prometido</span>
               </div>
               <span className="gothic-note-wing wing-right" aria-hidden="true">†</span>
             </aside>
@@ -239,14 +245,14 @@ export default function App() {
                 <strong>ISSUE<br />MMXXVI</strong>
               </div>
               <div className="footer-main-copy">
-                <span className="footer-kicker">SIN CENSURA · SIN FILTROS · HECHO A MANO</span>
+                <span className="footer-kicker">13 DE OCTUBRE · CUMPLEAÑOS & COMPROMISO</span>
                 <p className="footer-signature">
-                  Hecho para <strong>Ratita</strong><br />con todo el cariño de <strong>Tibo</strong>.
+                  Hecho para <strong>Ratita</strong>, mi Reina y Futura Esposa<br />con todo el amor infinito de <strong>Tibo</strong>.
                 </p>
               </div>
               <div className="footer-stamp" aria-hidden="true">
                 <Star size={19} fill="currentColor" />
-                <span>LOVE<br />NOISE</span>
+                <span>FOREVER<br />NOISE</span>
               </div>
               <span className="footer-scribble" aria-hidden="true">hasta el último amanecer</span>
             </footer>
@@ -261,7 +267,7 @@ export default function App() {
         onEnded={handleNextTrack}
       />
 
-      {/* Falling Vector Confetti (Zero Emojis) */}
+      {/* Falling Goth & Punk Vector Shower (Zero Emojis) */}
       {candies.map((c) => (
         <span 
           key={c.id} 
@@ -269,12 +275,33 @@ export default function App() {
           style={{ left: c.left, color: c.color }}
         >
           <span style={{ display: 'inline-block', transform: `scale(${c.scale})` }}>
-            {c.type === 'heart' && <Heart size={24} fill={c.color} stroke="none" />}
-            {c.type === 'star' && <Star size={24} fill={c.color} stroke="none" />}
-            {c.type === 'sparkle' && <Sparkles size={24} />}
-            {c.type === 'petal' && (
-              <svg width="24" height="24" viewBox="0 0 24 24" fill={c.color} style={{ transform: 'rotate(45deg)', display: 'inline-block' }}>
-                <path d="M12,2 C12,2 4,10 4,14 C4,18 7.5,21 12,21 C16.5,21 20,18 20,14 C20,10 12,2 12,2 Z" />
+            {c.type === 'bat' && (
+              <svg width="30" height="15" viewBox="0 0 64 30" style={{ display: 'inline-block', filter: 'drop-shadow(0 2px 5px rgba(0,0,0,0.8))' }}>
+                <path d="M32 27C26 17 20 12 13 10c2 3 2 6 1 9C9 16 5 15 1 16c7 5 12 9 17 13 3-5 8-7 14-2 6-5 11-3 14 2 5-4 10-8 17-13-4-1-8 0-13 3-1-3-1-6 1-9-7 2-13 7-19 17Z" fill={c.color} />
+              </svg>
+            )}
+            {c.type === 'cross' && (
+              <svg width="18" height="26" viewBox="0 0 24 32" style={{ display: 'inline-block', filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.8))' }}>
+                <path d="M9 2h6v7h7v6h-7v17H9V15H2V9h7V2z" fill={c.color} />
+              </svg>
+            )}
+            {c.type === 'pin' && (
+              <svg width="22" height="24" viewBox="0 0 24 24" fill="none" stroke={c.color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline-block', transform: 'rotate(-20deg)' }}>
+                <path d="M8 3h4a3 3 0 0 1 3 3v2H7V6a3 3 0 0 1 1-3z" fill={c.color} fillOpacity="0.3" />
+                <path d="M7 8v11a2 2 0 0 0 4 0V8" />
+                <line x1="11" y1="19" x2="16" y2="5" />
+              </svg>
+            )}
+            {c.type === 'heart' && (
+              <Heart size={22} fill={c.color} stroke="none" style={{ filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.7))' }} />
+            )}
+            {c.type === 'star' && (
+              <Star size={20} fill={c.color} stroke="none" style={{ filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.7))' }} />
+            )}
+            {c.type === 'ring' && (
+              <svg width="24" height="26" viewBox="0 0 24 26" fill="none" style={{ display: 'inline-block' }}>
+                <circle cx="12" cy="15" r="7" stroke={c.color} strokeWidth="2.5" />
+                <polygon points="12,2 16,7 8,7" fill={c.color} />
               </svg>
             )}
           </span>

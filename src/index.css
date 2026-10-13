@@ -3329,6 +3329,8 @@ button { max-width: 100%; }
 .mark-mecano { top: 14px; font-family: Arial,sans-serif; font-size: 7px; font-weight: 300; letter-spacing: .15em; }
 .mark-tijuanano { top: 13px; font-family: Impact,sans-serif; font-size: 6.6px; line-height: .8; transform: translateX(-50%) rotate(-3deg); text-decoration: line-through; text-decoration-thickness: 1px; }
 
+.mark-queen { top: 13px; font-family: 'Playfair Display', Georgia, serif; font-size: 6.8px; font-weight: 700; font-style: italic; letter-spacing: .08em; }
+
 /* The record itself is a physical play/pause control. */
 .vinyl-disc { padding: 0; cursor: pointer; appearance: none; -webkit-appearance: none; transition: box-shadow .35s ease, filter .35s ease; }
 .vinyl-disc.spinning-vinyl { animation: spin-record 2.8s linear infinite; }
@@ -3342,3 +3344,718 @@ button { max-width: 100%; }
 .turntable-arm:not(.arm-on-record) .arm-cartridge::after { transform: translateX(-50%) scaleY(.25); }
 .turntable-arm.arm-on-record .arm-cartridge { transform: translateY(0) rotate(0); transition-delay: .38s; }
 .turntable-arm.arm-on-record .arm-cartridge::after { transform: translateX(-50%) scaleY(1); transition-delay: .42s; }
+
+/* =========================================================
+   HARDCORE PUNK & GOTHIC DARKS BIRTHDAY & ENGAGEMENT EDITION
+   ========================================================= */
+
+/* Landing Goth & Punk Touches */
+.goth-landing-topline {
+  font-family: 'Special Elite', monospace !important;
+  letter-spacing: 0.16em !important;
+  color: #f87171 !important;
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+.goth-landing-monogram {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.goth-monogram-cross {
+  color: #ef4444;
+  font-size: 1.4rem;
+  font-weight: 900;
+  text-shadow: 0 0 12px rgba(239, 68, 68, 0.8);
+  animation: pulse-subtle 2s infinite ease-in-out;
+}
+
+.goth-birthday-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  background: rgba(15, 10, 18, 0.85);
+  border: 1px solid #dc2626;
+  border-radius: 4px;
+  color: #fca5a5;
+  font-family: 'Special Elite', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 10px;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.35), inset 0 0 10px rgba(220, 38, 38, 0.15);
+  transform: rotate(-1deg);
+}
+
+.goth-landing-title {
+  font-family: 'Special Elite', 'Playfair Display', serif !important;
+  letter-spacing: -0.02em;
+}
+
+.goth-name-highlight {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #9333ea 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 0 25px rgba(239, 68, 68, 0.55));
+}
+
+.goth-tibo-badge {
+  border: 1px dashed rgba(239, 68, 68, 0.4) !important;
+  background: rgba(18, 12, 24, 0.8) !important;
+  color: #e2e8f0 !important;
+}
+
+.goth-entry-btn {
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.35) 0%, rgba(13, 9, 18, 0.9) 100%) !important;
+  border: 1px solid #ef4444 !important;
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.5), inset 0 0 15px rgba(220, 38, 38, 0.3) !important;
+}
+
+.goth-portal-hint {
+  font-family: 'Special Elite', monospace !important;
+  color: #fca5a5 !important;
+  letter-spacing: 0.08em;
+}
+
+/* Header Darks & Punk Styling */
+.goth-header-brand .goth-brand-badge {
+  background: rgba(18, 12, 22, 0.9) !important;
+  border: 1px solid rgba(239, 68, 68, 0.45) !important;
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.25);
+}
+
+.goth-brand-cross {
+  color: #ef4444;
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+}
+
+.goth-fiancee-tag {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: rgba(220, 38, 38, 0.2);
+  color: #fca5a5;
+  border: 1px solid #dc2626;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.goth-brand-subtext {
+  font-family: monospace;
+  color: rgba(241, 245, 249, 0.7) !important;
+  font-size: 0.75rem;
+}
+
+.goth-celebrate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  background: #18181b;
+  color: #fca5a5;
+  border: 1px solid #ef4444;
+  border-radius: 3px;
+  font-family: 'Special Elite', monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.35);
+}
+
+.goth-celebrate-btn:hover {
+  background: #dc2626;
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(220, 38, 38, 0.75);
+  transform: scale(1.04);
+}
+
+/* Birthday Engagement Card - Gothic Mode */
+#card-birthday-engagement {
+  grid-column: 1 / -1;
+  background: radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.12), transparent 70%),
+              radial-gradient(circle at 100% 100%, rgba(88, 28, 135, 0.15), transparent 60%),
+              rgba(10, 8, 14, 0.92);
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(220, 38, 38, 0.16);
+  position: relative;
+  overflow: hidden;
+}
+
+#card-birthday-engagement::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ef4444, #9333ea, transparent);
+}
+
+.goth-birthday-container {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.goth-header-cross {
+  color: #ef4444;
+  filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.7));
+}
+
+/* Goth Banner Box (Zine & Punk Aesthetics) */
+.goth-banner-box {
+  position: relative;
+  text-align: center;
+  padding: 26px 20px 20px;
+  background: rgba(14, 10, 18, 0.8);
+  border-radius: 4px;
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.goth-banner-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px dashed rgba(220, 38, 38, 0.25);
+  padding-bottom: 8px;
+}
+
+.goth-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #f87171;
+  background: rgba(220, 38, 38, 0.15);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+
+.goth-bats-pair {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ef4444;
+}
+
+.goth-date-mark {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  color: rgba(241, 245, 249, 0.6);
+}
+
+.goth-headline {
+  font-size: clamp(1.8rem, 4.2vw, 2.7rem);
+  font-family: 'Special Elite', 'Playfair Display', serif;
+  font-weight: 700;
+  color: #f8fafc;
+  line-height: 1.25;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.01em;
+}
+
+.goth-headline em {
+  font-style: italic;
+  background: linear-gradient(135deg, #ef4444 0%, #f43f5e 40%, #c084fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 16px rgba(239, 68, 68, 0.4));
+}
+
+.goth-subheadline {
+  color: rgba(241, 245, 249, 0.75);
+  font-size: 0.95rem;
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Gothic Cake Altar */
+.goth-cake-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goth-cake-stage {
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: radial-gradient(circle at 50% 30%, #171120 0%, #08060c 100%);
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  border-radius: 8px;
+  padding: 18px 18px 22px;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(220, 38, 38, 0.15);
+  position: relative;
+}
+
+.goth-cake-svg {
+  width: 100%;
+  height: auto;
+  max-height: 230px;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.8));
+}
+
+/* Spectral Flame Animation */
+.goth-flame-dance {
+  transform-origin: center bottom;
+  animation: goth-flame-burn 1.2s ease-in-out infinite alternate;
+}
+
+.goth-delay-0 { animation-delay: 0s; }
+.goth-delay-1 { animation-delay: 0.2s; }
+.goth-delay-2 { animation-delay: 0.4s; }
+.goth-delay-3 { animation-delay: 0.15s; }
+.goth-delay-4 { animation-delay: 0.35s; }
+
+@keyframes goth-flame-burn {
+  0% { transform: scale(0.96) rotate(-3deg); opacity: 0.9; filter: drop-shadow(0 -2px 8px #ef4444); }
+  50% { transform: scale(1.18) rotate(2deg); opacity: 1; filter: drop-shadow(0 -4px 14px #dc2626) drop-shadow(0 0 20px #9333ea); }
+  100% { transform: scale(0.92) rotate(-1deg); opacity: 0.88; }
+}
+
+.goth-smoke-stream {
+  animation: goth-smoke-rise 2.2s ease-out forwards;
+}
+
+@keyframes goth-smoke-rise {
+  0% { opacity: 0.85; stroke-dashoffset: 0; }
+  100% { opacity: 0; transform: translateY(-30px) scaleX(1.8); }
+}
+
+.goth-blow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 28px;
+  background: linear-gradient(135deg, #18181b, #09090b);
+  color: #fca5a5;
+  border: 1px solid #ef4444;
+  border-radius: 4px;
+  font-family: 'Special Elite', monospace;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(220, 38, 38, 0.35);
+  transition: all 0.25s ease;
+}
+
+.goth-blow-btn:hover {
+  background: #b91c1c;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(239, 68, 68, 0.7);
+}
+
+.goth-btn-flame {
+  color: #ef4444;
+  animation: goth-flame-burn 1s infinite alternate;
+}
+
+.goth-wish-granted {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  background: rgba(18, 12, 22, 0.95);
+  border: 1px solid #ef4444;
+  padding: 16px 22px;
+  border-radius: 4px;
+  color: #f1f5f9;
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.25);
+}
+
+.goth-wish-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ef4444;
+  font-family: 'Special Elite', monospace;
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+}
+
+.goth-wish-granted p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(241, 245, 249, 0.85);
+  line-height: 1.5;
+}
+
+.goth-relight-btn {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px dashed rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+  padding: 4px 14px;
+  border-radius: 3px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.goth-relight-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #ffffff;
+}
+
+/* Engagement Box - Punk / Gothic Covenant */
+.goth-engagement-box {
+  position: relative;
+  background: linear-gradient(150deg, rgba(16, 11, 22, 0.9), rgba(8, 6, 12, 0.95));
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  border-radius: 4px;
+  padding: 26px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(239, 68, 68, 0.2);
+}
+
+.goth-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px dashed rgba(220, 38, 38, 0.25);
+  padding-bottom: 10px;
+}
+
+.goth-box-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Special Elite', monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #ef4444;
+}
+
+.goth-box-number {
+  font-family: monospace;
+  font-size: 0.76rem;
+  color: rgba(241, 245, 249, 0.6);
+}
+
+.goth-ring-stage {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0 22px;
+}
+
+.goth-ring-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.goth-ring-btn:hover {
+  transform: scale(1.08);
+}
+
+.goth-ring-svg {
+  width: 110px;
+  height: 110px;
+  filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.45));
+}
+
+.goth-diamond-pulse {
+  animation: goth-diamond-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes goth-diamond-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.7)); }
+  50% { filter: drop-shadow(0 0 24px rgba(239, 68, 68, 1)) drop-shadow(0 0 35px rgba(147, 51, 234, 0.8)); }
+}
+
+.goth-ring-caption {
+  font-family: 'Special Elite', monospace;
+  font-size: 0.84rem;
+  color: #fca5a5;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.goth-letter-content {
+  color: rgba(241, 245, 249, 0.88);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.goth-letter-heading {
+  color: #f8fafc;
+  font-family: 'Special Elite', 'Playfair Display', serif;
+  font-size: 1.25rem;
+  margin: 0 0 14px;
+}
+
+.goth-quote {
+  margin: 18px 0;
+  padding: 14px 20px;
+  background: rgba(220, 38, 38, 0.08);
+  border-left: 3px solid #ef4444;
+  border-radius: 0 4px 4px 0;
+  color: #fecaca;
+  font-style: italic;
+  font-size: 1.04rem;
+  box-shadow: inset 0 0 20px rgba(220, 38, 38, 0.05);
+}
+
+.goth-signature {
+  margin-top: 18px;
+  text-align: right;
+  color: rgba(241, 245, 249, 0.8);
+}
+
+.goth-signature strong {
+  color: #ef4444;
+  font-family: 'Special Elite', monospace;
+  font-size: 1.18rem;
+  letter-spacing: 0.04em;
+}
+
+/* Actions Grid - Punk & Goth Buttons */
+.goth-actions-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .goth-actions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.goth-action-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 22px;
+  background: rgba(18, 12, 22, 0.85);
+  border: 1px solid rgba(220, 38, 38, 0.5);
+  color: #fca5a5;
+  border-radius: 4px;
+  font-family: 'Special Elite', monospace;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.25);
+}
+
+.goth-action-track:hover {
+  background: rgba(220, 38, 38, 0.25);
+  border-color: #ef4444;
+  box-shadow: 0 0 25px rgba(220, 38, 38, 0.5);
+  transform: translateY(-2px);
+}
+
+.goth-action-track.goth-playing-active {
+  background: linear-gradient(135deg, #b91c1c, #581c87);
+  color: #ffffff;
+  border-color: #ef4444;
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.7);
+}
+
+.goth-action-rain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 22px;
+  background: rgba(18, 12, 22, 0.85);
+  border: 1px solid rgba(147, 51, 234, 0.5);
+  color: #d8b4fe;
+  border-radius: 4px;
+  font-family: 'Special Elite', monospace;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 15px rgba(147, 51, 234, 0.25);
+}
+
+.goth-action-rain:hover {
+  background: rgba(147, 51, 234, 0.25);
+  border-color: #c084fc;
+  box-shadow: 0 0 25px rgba(147, 51, 234, 0.5);
+  transform: translateY(-2px);
+}
+
+
+/* ==========================================
+   PRÓLOGO · FANZINE PUNK ROJO SANGRE
+   ========================================== */
+.intro-card {
+  --blood: #b3001b;
+  --blood-bright: #ff1f3d;
+  --blood-dark: #4a0008;
+  --bone: #f1e6dc;
+  --font-punk: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  --font-drip: 'Rubik Wet Paint', 'Anton', Impact, sans-serif;
+  --font-marker: 'Permanent Marker', 'Special Elite', cursive;
+  --font-zine: 'Special Elite', 'Courier New', monospace;
+  background:
+    radial-gradient(ellipse at 12% 85%, rgba(179, 0, 27, .28), transparent 55%),
+    radial-gradient(circle at 92% 8%, rgba(255, 31, 61, .12), transparent 35%),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,.012) 0 2px, transparent 2px 6px),
+    #0b0607;
+  border: 1px solid rgba(179, 0, 27, .45);
+  box-shadow: inset 0 0 0 6px #0b0607, inset 0 0 0 7px rgba(179, 0, 27, .25), 0 30px 80px -30px rgba(179, 0, 27, .45);
+}
+
+/* Círculo verde → salpicadura / mancha de sangre */
+.intro-card::after {
+  width: 520px; height: 520px; left: -260px;
+  border: 0;
+  background: radial-gradient(circle, rgba(179, 0, 27, .35) 0%, rgba(74, 0, 8, .25) 38%, transparent 68%);
+  box-shadow: none;
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.intro-card > * { position: relative; z-index: 1; }
+
+.intro-index {
+  position: absolute;
+  font-family: var(--font-punk);
+  font-size: 6.5rem;
+  -webkit-text-stroke: 1.5px rgba(255, 31, 61, .35);
+  transform: rotate(6deg);
+}
+
+/* Badge → cinta adhesiva roja */
+.intro-badge {
+  position: absolute;
+  font-family: var(--font-punk);
+  font-size: .78rem;
+  letter-spacing: .22em;
+  color: var(--bone);
+  background: var(--blood);
+  padding: 6px 14px;
+  transform: rotate(-2.5deg);
+  box-shadow: 3px 3px 0 #000;
+  clip-path: polygon(2% 0, 100% 4%, 98% 100%, 0 94%);
+}
+
+.intro-title {
+  font-family: var(--font-punk);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  line-height: .92;
+  color: var(--bone);
+  text-shadow: 4px 4px 0 var(--blood-dark), 0 0 28px rgba(255, 31, 61, .18);
+}
+
+.intro-title em {
+  display: inline-block;
+  font-family: var(--font-drip);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--blood-bright);
+  text-transform: lowercase;
+  transform: rotate(-3deg);
+  text-shadow: 0 0 22px rgba(255, 31, 61, .45), 3px 3px 0 #000;
+}
+
+.intro-text {
+  font-family: var(--font-zine);
+  color: rgba(241, 230, 220, .72);
+  line-height: 1.8;
+}
+
+.intro-text strong { color: var(--blood-bright); font-weight: 400; }
+
+.intro-text p:first-child::first-letter {
+  font-family: var(--font-drip);
+  font-size: 5.2rem;
+  line-height: .7;
+  color: var(--blood-bright);
+  text-shadow: 3px 3px 0 #000;
+}
+
+.intro-accent-paragraph {
+  font-family: var(--font-marker) !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 1.35rem !important;
+  line-height: 1.45;
+  color: var(--bone) !important;
+  border-left: 0;
+  padding: 14px 18px 14px 22px !important;
+  background: linear-gradient(100deg, rgba(179, 0, 27, .35), rgba(179, 0, 27, .08) 70%, transparent);
+  position: relative;
+  transform: rotate(-.6deg);
+}
+
+.intro-accent-paragraph::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 6px; bottom: 6px;
+  width: 5px;
+  background: var(--blood-bright);
+  box-shadow: 0 0 12px rgba(255, 31, 61, .7);
+}
+
+.intro-whisper {
+  font-family: var(--font-marker);
+  font-style: normal;
+  color: #ff4d63;
+  letter-spacing: .01em;
+}
+
+.intro-closing-phrase {
+  font-family: var(--font-punk);
+  font-style: normal;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--bone);
+  background: #000;
+  border: 2px solid var(--blood);
+  border-radius: 0;
+  padding: 12px 16px;
+  box-shadow: 5px 5px 0 var(--blood);
+  transform: rotate(.5deg);
+}
+
+@media (max-width: 900px) {
+  .intro-index { font-size: 4.5rem; }
+}
+
+@media (max-width: 360px) {
+  .intro-title { font-size: 2.55rem; }
+  .intro-text p:first-child::first-letter { font-size: 4rem; }
+}

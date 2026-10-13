@@ -23,38 +23,42 @@ export default function Landing({ onStart }) {
           <span className="light-orb orb-pink" />
         </div>
 
-        <div className="landing-topline">
-          <span>Archivo sentimental</span>
-          <span>MMXXVI</span>
+        <div className="landing-topline goth-landing-topline">
+          <span>† 13.10 · ISSUE MMXXVI · UNHOLY ROMANCE</span>
+          <span>SIN CENSURA †</span>
         </div>
 
-        <div className="landing-monogram" aria-hidden="true">
+        <div className="landing-monogram goth-landing-monogram" aria-hidden="true">
           <span>R</span>
-          <Asterisk size={22} />
+          <span className="goth-monogram-cross">†</span>
         </div>
 
-        <h1 className="landing-title">
-          Para<br /><span className="landing-name-highlight">Ratita</span>
+        <div className="landing-birthday-pill goth-birthday-pill">
+          <span>† PUNK PROMISE // PARA MI PROMETIDA & REINA ✟</span>
+        </div>
+
+        <h1 className="landing-title goth-landing-title">
+          ¡Feliz Cumpleaños,<br /><span className="landing-name-highlight goth-name-highlight">Ratita!</span>
         </h1>
 
         <p className="landing-subtitle">
-          Una colección privada de canciones, flores, criaturas y pequeñas obsesiones. Tu universo, guardado en un rincón de la noche.
+          Guitarras desgarradoras, flores oscuras, criaturas en sombras y un pacto de amor eterno. Hoy celebramos tu vida y el primer cumpleaños como prometidos.
         </p>
 
-        <div className="landing-tibo-badge"><span>Un universo hecho para <strong>ti</strong></span></div>
+        <div className="landing-tibo-badge goth-tibo-badge"><span>De <strong>Tibo</strong> · Hasta el último amanecer †</span></div>
 
         {/* Mystic Portal Entry Button */}
         <div className="landing-portal-wrapper">
           <button 
             type="button" 
-            className="mystic-keyhole-btn"
+            className="mystic-keyhole-btn birthday-entry-btn goth-entry-btn"
             onClick={handleStart}
-            aria-label="Abrir el rincón de Ratita"
+            aria-label="Abrir el ritual de celebración de Ratita"
           >
             <KeyRound size={27} className="key-icon-pulse" />
           </button>
-          <span className="portal-hint">
-            Entrar al universo <ArrowDownRight size={15} />
+          <span className="portal-hint goth-portal-hint">
+            Entrar al ritual nocturno † <ArrowDownRight size={15} />
           </span>
         </div>
       </div>

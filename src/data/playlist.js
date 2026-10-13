@@ -7,7 +7,9 @@ export const TRACK_METADATA = {
   maldita: { title: 'Kumbala', artist: 'Maldita Vecindad', url: '/music/maldita_vecindad_kumbala.mp3' },
   mecano: { title: 'La Fuerza del Destino', artist: 'Mecano', url: '/music/mecano_la_fuerza_del_destino.mp3' },
   tijuanano: { title: 'Pobre De Tí', artist: 'Tijuana No!', url: '/music/tijuana_no_pobre_de_ti.mp3' },
+  loveofmylife: { title: 'Love of My Life', artist: 'Queen', url: '/love_of_my_life.mp3' },
   secret: { title: 'A Little Piece of Heaven', artist: 'Avenged Sevenfold', url: '/music/avenged_a_little_piece_of_heaven.mp3' }
 };
 
 export const PLAYLIST_KEYS = Object.keys(TRACK_METADATA).filter((key) => key !== 'secret');
+

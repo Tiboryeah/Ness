@@ -1,0 +1,488 @@
+/* ==========================================
+   CONTADOR · VÍSPERA DEL CUMPLEAÑOS (TERROR)
+   ========================================== */
+.bc-root {
+  --blood: #7a0a0e;
+  --blood-dried: #4a0508;
+  --bone: #cfc4b6;
+  position: fixed;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+  padding: 90px 16px 0;
+  box-sizing: border-box;
+  color: var(--bone);
+  font-family: 'Special Elite', 'Courier New', monospace;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 52%, rgba(90, 6, 10, .35), transparent 70%),
+    radial-gradient(ellipse 80% 40% at 50% 115%, rgba(120, 30, 10, .28), transparent 70%),
+    #030101;
+}
+
+/* Viñeta pesada: los bordes se pierden en negro */
+.bc-root::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0, 0, 0, .6) 70%, rgba(0, 0, 0, .95) 100%);
+}
+
+/* ---------- Grano de película y luz moribunda ---------- */
+.bc-grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 5;
+  pointer-events: none;
+  opacity: .16;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: bc-grain .9s steps(5) infinite;
+}
+
+@keyframes bc-grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 2%); }
+  40% { transform: translate(2%, -4%); }
+  60% { transform: translate(-4%, -1%); }
+  80% { transform: translate(3%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+.bc-flicker {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: #000;
+  opacity: 0;
+  animation: bc-dying-light 11s infinite;
+}
+
+@keyframes bc-dying-light {
+  0%, 41%, 44%, 46%, 79%, 100% { opacity: 0; }
+  42% { opacity: .55; }
+  43% { opacity: .1; }
+  45% { opacity: .7; }
+  80% { opacity: .3; }
+  80.6% { opacity: 0; }
+}
+
+/* Aparece por una fracción de segundo cada cierto tiempo */
+.bc-subliminal {
+  position: fixed;
+  top: 50%; left: 50%;
+  translate: -50% -50%;
+  z-index: 4;
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: clamp(3rem, 12vw, 9rem);
+  white-space: nowrap;
+  color: #5a0006;
+  opacity: 0;
+  pointer-events: none;
+  animation: bc-subliminal 23s 9s infinite;
+}
+
+@keyframes bc-subliminal {
+  0%, 60%, 60.8%, 100% { opacity: 0; }
+  60.2% { opacity: .55; transform: scale(1.04); }
+  60.5% { opacity: .2; }
+}
+
+/* ---------- Sangre ---------- */
+.bc-blood {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.bc-blood-band {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 46px;
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .7));
+}
+
+/* El chorro baja desde detrás de la mancha: la punta avanza con la gota */
+.bc-drip {
+  position: absolute;
+  top: 12px;
+  translate: -50% 0;
+  transform: translateY(-100%);
+  filter: drop-shadow(1px 2px 1.5px rgba(0, 0, 0, .75));
+  animation-name: bc-drip-grow;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(.3, .5, .25, 1);
+}
+
+@keyframes bc-drip-grow {
+  0% { transform: translateY(-100%); }
+  12% { transform: translateY(-82%); }
+  100% { transform: translateY(0); }
+}
+
+.bc-drop {
+  position: absolute;
+  width: calc(7px * var(--s));
+  height: calc(10px * var(--s));
+  translate: -50% 0;
+  border-radius: 50% 50% 50% 50% / 64% 64% 38% 38%;
+  background:
+    radial-gradient(circle at 36% 30%, rgba(255, 215, 205, .4) 0 7%, transparent 13%),
+    radial-gradient(circle at 50% 62%, #5e040b, #2e0003 70%, #160001);
+  box-shadow: 1px 2px 2px rgba(0, 0, 0, .7);
+  opacity: 0;
+  animation: bc-drop-fall ease-in infinite;
+}
+
+@keyframes bc-drop-fall {
+  0% { transform: translateY(-4px) scale(.3, .3); opacity: 0; }
+  38% { transform: translateY(0) scale(1, 1); opacity: 1; }
+  46% { transform: translateY(5px) scale(.88, 1.2); opacity: 1; }
+  100% { transform: translateY(105vh) scale(.7, 1.6); opacity: 1; }
+}
+
+/* Salpicaduras secas en la pared */
+.bc-splatter {
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .85;
+}
+
+.bc-splatter-a { width: 260px; top: 18%; left: -70px; rotate: 20deg; }
+.bc-splatter-b { width: 200px; top: 58%; right: -50px; rotate: -35deg; opacity: .7; }
+.bc-splatter-c { width: 150px; bottom: 4%; left: 14%; rotate: 70deg; opacity: .55; }
+
+/* ---------- Brasas ---------- */
+.bc-embers span {
+  position: fixed;
+  bottom: -10px;
+  border-radius: 50%;
+  background: #ff5a2d;
+  box-shadow: 0 0 4px 1px rgba(255, 60, 30, .6);
+  opacity: 0;
+  animation: bc-ember linear infinite;
+  pointer-events: none;
+}
+
+@keyframes bc-ember {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: .7; }
+  100% { transform: translate(40px, -105vh); opacity: 0; }
+}
+
+/* ---------- Pentagrama tallado ---------- */
+.bc-sigil {
+  position: fixed;
+  top: 50%; left: 50%;
+  width: min(94vw, 760px);
+  translate: -50% -50%;
+  fill: none;
+  stroke: #5c070c;
+  stroke-width: 1.4;
+  opacity: .75;
+  animation: bc-spin 140s linear infinite;
+  pointer-events: none;
+}
+
+.bc-sigil-text {
+  fill: #5c070c;
+  stroke: none;
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: 7.4px;
+  letter-spacing: 1.6px;
+}
+
+@keyframes bc-spin { to { rotate: 360deg; } }
+
+/* ---------- Contenido ---------- */
+.bc-content {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 860px);
+  text-align: center;
+}
+
+.bc-kicker {
+  display: inline-block;
+  font-family: 'Anton', Impact, sans-serif;
+  letter-spacing: .4em;
+  font-size: .78rem;
+  color: #9a8f84;
+  border-top: 1px solid rgba(154, 143, 132, .3);
+  border-bottom: 1px solid rgba(154, 143, 132, .3);
+  padding: 6px 4px 6px 12px;
+}
+
+.bc-title {
+  margin: 26px 0 12px;
+  font-family: 'UnifrakturMaguntia', 'Pirata One', serif;
+  font-weight: 400;
+  font-size: clamp(2.6rem, 8vw, 5.6rem);
+  line-height: 1;
+  color: #8e0b10;
+  text-shadow: 2px 2px 0 #000, 0 0 18px rgba(110, 0, 6, .35);
+  animation: bc-glitch 7s infinite;
+}
+
+/* Sacudida breve, como señal de VHS que se pierde */
+@keyframes bc-glitch {
+  0%, 89%, 91.5%, 100% { transform: none; text-shadow: 2px 2px 0 #000, 0 0 18px rgba(110, 0, 6, .35); }
+  89.5% { transform: translate(-4px, 1px) skewX(-6deg); text-shadow: 3px 0 0 rgba(0, 160, 160, .35), -3px 0 0 rgba(255, 0, 30, .5); }
+  90.3% { transform: translate(3px, -1px); text-shadow: -2px 0 0 rgba(0, 160, 160, .35), 2px 0 0 rgba(255, 0, 30, .5); }
+  91% { transform: translate(-1px, 0); }
+}
+
+.bc-sub {
+  margin: 0 auto 36px;
+  max-width: 34ch;
+  font-size: clamp(.95rem, 2.4vw, 1.12rem);
+  color: rgba(207, 196, 182, .55);
+}
+
+.bc-clock {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.bc-unit-wrap { display: flex; align-items: flex-start; }
+
+.bc-unit {
+  min-width: clamp(78px, 18vw, 150px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bc-digits {
+  font-family: 'Pirata One', 'UnifrakturMaguntia', serif;
+  font-size: clamp(3.6rem, 13vw, 8.5rem);
+  line-height: 1;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 3px 3px 0 #1a0002, 0 0 10px rgba(90, 0, 6, .6);
+}
+
+.bc-unit-wrap:last-child .bc-digits { animation: bc-jolt 1s steps(1) infinite; }
+
+@keyframes bc-jolt {
+  0%, 100% { transform: none; }
+  4% { transform: translate(2px, -1px); }
+  8% { transform: none; }
+}
+
+.bc-label {
+  margin-top: 6px;
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: clamp(.62rem, 1.6vw, .78rem);
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: #7d6f64;
+}
+
+.bc-sep {
+  font-size: clamp(1.4rem, 4.5vw, 2.6rem);
+  line-height: 1;
+  margin-top: clamp(1rem, 3.6vw, 2.6rem);
+  color: var(--blood);
+}
+
+/* ---------- Altar con velas ---------- */
+.bc-altar {
+  position: relative;
+  margin-top: 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(16px, 6vw, 70px);
+}
+
+/* Piso del altar donde descansan las velas */
+.bc-altar::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: -14px;
+  width: min(120%, 900px);
+  height: 40px;
+  translate: -50% 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 30%, rgba(60, 12, 8, .7), transparent 70%);
+}
+
+.bc-oath {
+  margin: 0 0 24px;
+  max-width: 30ch;
+  font-size: clamp(.92rem, 2.3vw, 1.08rem);
+  line-height: 1.6;
+  color: rgba(207, 196, 182, .7);
+}
+
+.bc-candle {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(54px, 8vw, 80px);
+}
+
+.bc-candle-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.bc-candle-light {
+  position: absolute;
+  left: 50%;
+  width: 420%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 140, 60, .13), rgba(255, 70, 30, .04) 40%, transparent 65%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: bc-light 2.3s ease-in-out infinite;
+}
+
+@keyframes bc-light {
+  0%, 100% { opacity: .9; }
+  23% { opacity: .7; }
+  41% { opacity: 1; }
+  57% { opacity: .78; }
+  67% { opacity: .95; }
+  80% { opacity: .82; }
+}
+
+.bc-flame { animation: bc-flame 1.7s ease-in-out infinite; }
+.bc-candle-right .bc-flame { animation-duration: 2.1s; animation-delay: -.8s; }
+.bc-candle-right .bc-candle-light { animation-delay: -1.1s; }
+.bc-halo { animation: bc-light 2.3s ease-in-out infinite; }
+
+@keyframes bc-flame {
+  0%, 100% { transform: scale(1, 1) skewX(0deg); }
+  18% { transform: scale(.97, 1.04) skewX(-2deg); }
+  34% { transform: scale(1.02, .96) skewX(1deg); }
+  52% { transform: scale(.98, 1.06) skewX(-.5deg); }
+  71% { transform: scale(1.01, .97) skewX(2.2deg); }
+  86% { transform: scale(.99, 1.02) skewX(-1deg); }
+}
+
+.bc-smoke { opacity: 0; }
+
+/* ---------- Puerta de entrada (activa el audio) ---------- */
+.bc-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 16px;
+  text-align: center;
+  background: rgba(2, 0, 0, .94);
+}
+
+.bc-gate-warning {
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: .78rem;
+  letter-spacing: .5em;
+  text-transform: uppercase;
+  color: #7d6f64;
+}
+
+.bc-gate-title {
+  margin: 0;
+  font-family: 'UnifrakturMaguntia', serif;
+  font-size: clamp(2.4rem, 9vw, 4.6rem);
+  color: #8e0b10;
+  text-shadow: 2px 2px 0 #000;
+  animation: bc-glitch 5s infinite;
+}
+
+.bc-gate-sub { margin: 0 0 18px; color: rgba(207, 196, 182, .55); }
+
+.bc-gate-btn {
+  font-family: 'Special Elite', monospace;
+  font-size: 1rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--bone);
+  background: transparent;
+  border: 1px solid rgba(142, 11, 16, .8);
+  padding: 14px 30px;
+  cursor: pointer;
+  transition: background .3s ease, color .3s ease;
+  animation: bc-breathe 3.5s ease-in-out infinite;
+}
+
+.bc-gate-btn:hover,
+.bc-gate-btn:focus-visible { background: #5a0006; color: #fff; outline: none; }
+
+@keyframes bc-breathe {
+  50% { border-color: rgba(142, 11, 16, .3); }
+}
+
+.bc-mute {
+  position: fixed;
+  right: 16px; bottom: 16px;
+  z-index: 6;
+  font-family: 'Special Elite', monospace;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #7d6f64;
+  background: rgba(0, 0, 0, .6);
+  border: 1px solid rgba(125, 111, 100, .3);
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* ---------- Despertar a medianoche ---------- */
+.bc-awakening { animation: bc-awaken 3.2s ease-in forwards; }
+.bc-awakening .bc-sigil { animation: bc-spin 5s linear infinite; stroke: #a00d14; opacity: 1; }
+.bc-awakening .bc-flame,
+.bc-awakening .bc-candle-light { animation: bc-snuff .5s 1.2s forwards; }
+.bc-awakening .bc-smoke { animation: bc-smoke 2s 1.4s ease-out forwards; }
+
+@keyframes bc-awaken {
+  0% { filter: none; }
+  12% { filter: brightness(2) saturate(1.5); }
+  24% { filter: none; }
+  100% { filter: brightness(0); }
+}
+
+@keyframes bc-snuff { to { opacity: 0; transform: scale(.2, .1); } }
+
+@keyframes bc-smoke {
+  0% { opacity: 0; stroke-dasharray: 0 400; }
+  30% { opacity: .5; }
+  100% { opacity: 0; stroke-dasharray: 400 0; transform: translateY(-20px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bc-root *, .bc-root { animation: none !important; }
+  .bc-drip { transform: none; }
+  .bc-drop, .bc-subliminal { display: none; }
+}
+
+@media (max-width: 520px) {
+  .bc-root { padding: 110px 12px 70px; }
+  .bc-sep { display: none; }
+  .bc-clock { flex-wrap: nowrap; gap: 0; }
+  .bc-unit { min-width: 0; width: 29vw; }
+  .bc-digits { font-size: 18vw; }
+  .bc-label { letter-spacing: .2em; }
+  .bc-drip { transform-origin: 50% 0; scale: .72; }
+  .bc-mute { bottom: 12px; right: 12px; }
+  .bc-altar { gap: 10px; }
+  .bc-oath { font-size: .85rem; }
+  .bc-candle { width: 46px; }
+  .bc-splatter-a { width: 170px; }
+  .bc-splatter-b { width: 140px; }
+}

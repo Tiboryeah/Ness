@@ -60,6 +60,13 @@ export default function RockSkaCard({ isPlaying, onTogglePlay, currentTrack, onT
       genre: 'Ska / Punk Rock',
       desc: 'Mensaje, fuerza inquebrantable, ritmo vibrante y un himno histórico imprescindible del ska latino.',
       badgeColor: '#ef4444', mark: 'TIJUANA NO!', labelClass: 'tijuanano'
+    },
+    loveofmylife: {
+      name: 'Queen (Especial Cumpleaños)',
+      song: 'Love of My Life',
+      genre: 'Balada de Amor / Promesa',
+      desc: '“Love of my life, you\'ve hurt me, you\'ve broken my heart and now you leave me... love of my life, can\'t you see? Bring it back, bring it back, don\'t take it away from me, because you don\'t know what it means to me.” La canción más especial para ti en tu cumpleaños.',
+      badgeColor: '#f43f5e', mark: 'QUEEN', labelClass: 'queen'
     }
   };
 

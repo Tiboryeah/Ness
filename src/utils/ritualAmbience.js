@@ -133,15 +133,42 @@ export function startRitualAmbience() {
     }
   }, 150);
 
+  // Bus aparte para latidos y campana: siguen sonando aunque la música se corte
+  let isMuted = false;
+  const fx = ctx.createGain();
+  fx.gain.value = 1;
+  fx.connect(ctx.destination);
+  const fxReverb = ctx.createConvolver();
+  fxReverb.buffer = makeImpulse(ctx, 6, 2.2);
+  const fxWet = ctx.createGain();
+  fxWet.gain.value = 0.55;
+  fxReverb.connect(fxWet).connect(fx);
+
+  function thump(when, peak) {
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(95, when);
+    osc.frequency.exponentialRampToValueAtTime(42, when + 0.16);
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0, when);
+    g.gain.linearRampToValueAtTime(peak, when + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.001, when + 0.32);
+    osc.connect(g).connect(fx);
+    osc.start(when);
+    osc.stop(when + 0.35);
+  }
+
   let stopped = false;
   const stop = (fade = 0.4) => {
     if (stopped) return;
     stopped = true;
     clearInterval(scheduler);
     const t = ctx.currentTime;
-    master.gain.cancelScheduledValues(t);
-    master.gain.setValueAtTime(master.gain.value, t);
-    master.gain.linearRampToValueAtTime(0, t + fade);
+    [master, fx].forEach((g) => {
+      g.gain.cancelScheduledValues(t);
+      g.gain.setValueAtTime(g.gain.value, t);
+      g.gain.linearRampToValueAtTime(0, t + fade);
+    });
     setTimeout(() => {
       sources.forEach((s) => { try { s.stop(); } catch { /* ya detenido */ } });
       ctx.close();
@@ -150,10 +177,47 @@ export function startRitualAmbience() {
 
   return {
     setMuted(muted) {
+      isMuted = muted;
       const t = ctx.currentTime;
       master.gain.cancelScheduledValues(t);
       master.gain.setValueAtTime(master.gain.value, t);
       master.gain.linearRampToValueAtTime(muted ? 0 : MASTER_VOLUME, t + 0.6);
+    },
+    // Latido "lub-dub"; intensity de 0 a 1 para que crezca en los últimos segundos
+    heartbeat(intensity = 0.5) {
+      if (isMuted || stopped) return;
+      const t = ctx.currentTime + 0.02;
+      const peak = 0.35 + intensity * 0.5;
+      thump(t, peak);
+      thump(t + 0.24, peak * 0.7);
+    },
+    // Corte en seco de la música (el silencio repentino asusta más que un fade)
+    silence(fade = 0.12) {
+      clearInterval(scheduler);
+      const t = ctx.currentTime;
+      master.gain.cancelScheduledValues(t);
+      master.gain.setValueAtTime(master.gain.value, t);
+      master.gain.linearRampToValueAtTime(0, t + fade);
+    },
+    // Campanada de medianoche: parciales de campana de iglesia con caída larga
+    bell() {
+      if (isMuted || stopped) return;
+      const t = ctx.currentTime + 0.02;
+      const f = 98;
+      [[0.5, 0.5, 7], [1, 0.45, 5.5], [1.19, 0.25, 4], [1.5, 0.18, 3.5], [2, 0.3, 3.2], [2.52, 0.12, 2.4], [3.01, 0.1, 2], [4.07, 0.06, 1.4]].forEach(([mult, amp, decay]) => {
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = f * mult;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0, t);
+        g.gain.linearRampToValueAtTime(amp * 0.6, t + 0.008);
+        g.gain.exponentialRampToValueAtTime(0.0005, t + decay);
+        osc.connect(g);
+        g.connect(fx);
+        g.connect(fxReverb);
+        osc.start(t);
+        osc.stop(t + decay + 0.1);
+      });
     },
     stop,
   };

@@ -7,6 +7,7 @@
   --bone: #cfc4b6;
   position: fixed;
   inset: 0;
+  z-index: 2147483000;
   overflow-x: hidden;
   overflow-y: auto;
   display: grid;
@@ -385,7 +386,7 @@
   gap: 14px;
   padding: 16px;
   text-align: center;
-  background: rgba(2, 0, 0, .94);
+  background: #000;
 }
 
 .bc-gate-warning {
@@ -443,30 +444,206 @@
   cursor: pointer;
 }
 
-/* ---------- Despertar a medianoche ---------- */
-.bc-awakening { animation: bc-awaken 3.2s ease-in forwards; }
-.bc-awakening .bc-sigil { animation: bc-spin 5s linear infinite; stroke: #a00d14; opacity: 1; }
-.bc-awakening .bc-flame,
-.bc-awakening .bc-candle-light { animation: bc-snuff .5s 1.2s forwards; }
-.bc-awakening .bc-smoke { animation: bc-smoke 2s 1.4s ease-out forwards; }
-
-@keyframes bc-awaken {
-  0% { filter: none; }
-  12% { filter: brightness(2) saturate(1.5); }
-  24% { filter: none; }
-  100% { filter: brightness(0); }
+/* ---------- Cuenta final (últimos 10 segundos) ---------- */
+.bc-title, .bc-sub, .bc-clock, .bc-kicker, .bc-oath, .bc-blood, .bc-splatter, .bc-mute {
+  transition: opacity 1s ease, filter 1s ease;
 }
+
+.bc-final .bc-title,
+.bc-final .bc-sub,
+.bc-final .bc-clock,
+.bc-final .bc-kicker,
+.bc-final .bc-oath,
+.bc-final .bc-mute,
+.bc-final .bc-subliminal,
+.bc-root:not(.bc-phase-count) .bc-title,
+.bc-root:not(.bc-phase-count) .bc-sub,
+.bc-root:not(.bc-phase-count) .bc-kicker,
+.bc-root:not(.bc-phase-count) .bc-oath,
+.bc-root:not(.bc-phase-count) .bc-subliminal { opacity: 0 !important; pointer-events: none; }
+.bc-final .bc-splatter,
+.bc-root:not(.bc-phase-count) .bc-splatter { opacity: .25; }
+
+.bc-final .bc-sigil {
+  animation-duration: 24s;
+  opacity: 1;
+  stroke: #7d0a10;
+  transition: stroke 1s ease, opacity 1s ease;
+}
+
+/* El borde de la pantalla late en rojo con cada segundo */
+.bc-final::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(110, 0, 8, .55) 100%);
+  animation: bc-pulse-edge 1s ease-out infinite;
+}
+
+@keyframes bc-pulse-edge {
+  0% { opacity: 1; }
+  60%, 100% { opacity: .15; }
+}
+
+.bc-final-count {
+  position: fixed;
+  top: 50%; left: 50%;
+  translate: -50% -54%;
+  z-index: 3;
+  font-family: 'Pirata One', 'UnifrakturMaguntia', serif;
+  font-size: min(62vw, 58vh);
+  line-height: 1;
+  color: var(--bone);
+  text-shadow: 6px 6px 0 #1a0002, 0 0 40px rgba(120, 0, 8, .7);
+  pointer-events: none;
+  animation: bc-count-beat 1s cubic-bezier(.2, .8, .2, 1) forwards;
+}
+
+@keyframes bc-count-beat {
+  0% { opacity: 0; transform: scale(1.35); filter: blur(10px); }
+  12% { opacity: 1; transform: scale(1); filter: blur(0); }
+  24% { transform: scale(1.04); }
+  36% { transform: scale(1); }
+  80% { opacity: .9; }
+  100% { opacity: 0; transform: scale(.9); filter: blur(4px); }
+}
+
+/* ---------- Medianoche ---------- */
+.bc-phase-midnight .bc-flame,
+.bc-phase-midnight .bc-candle-light { animation: bc-snuff .35s .15s forwards; }
+.bc-phase-midnight .bc-smoke { animation: bc-smoke 2.2s .3s ease-out forwards; }
+.bc-phase-midnight .bc-sigil { stroke: #c0101a; opacity: 1; filter: drop-shadow(0 0 12px rgba(200, 0, 20, .8)); transition: stroke .2s, filter .2s; }
+.bc-phase-midnight .bc-embers,
+.bc-phase-midnight .bc-final-count { opacity: 0; }
 
 @keyframes bc-snuff { to { opacity: 0; transform: scale(.2, .1); } }
 
 @keyframes bc-smoke {
   0% { opacity: 0; stroke-dasharray: 0 400; }
-  30% { opacity: .5; }
+  30% { opacity: .55; }
   100% { opacity: 0; stroke-dasharray: 400 0; transform: translateY(-20px); }
 }
 
+.bc-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255, 60, 60, .55), rgba(140, 0, 10, .35) 50%, transparent 80%);
+  opacity: 0;
+}
+
+.bc-phase-midnight .bc-flash { animation: bc-flash 1.1s ease-out forwards; }
+
+@keyframes bc-flash {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Telón: dos mitades negras que primero cubren todo y luego se abren */
+.bc-curtain {
+  position: fixed;
+  left: 0; right: 0;
+  height: 50.2vh;
+  z-index: 20;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.1s ease .6s, transform 1.6s cubic-bezier(.76, 0, .18, 1), box-shadow .6s ease;
+}
+
+.bc-curtain-top { top: 0; }
+.bc-curtain-bottom { bottom: 0; }
+
+.bc-root:not(.bc-phase-count) .bc-curtain { opacity: 1; }
+
+.bc-phase-reveal .bc-curtain { transition: transform 1.6s cubic-bezier(.76, 0, .18, 1), box-shadow .4s ease; }
+.bc-phase-reveal .bc-curtain-top { transform: translateY(-101%); box-shadow: 0 2px 0 #8e0b10, 0 0 60px 6px rgba(190, 0, 20, .55); }
+.bc-phase-reveal .bc-curtain-bottom { transform: translateY(101%); box-shadow: 0 -2px 0 #8e0b10, 0 0 60px 6px rgba(190, 0, 20, .55); }
+
+/* Línea roja que corta la oscuridad justo antes de abrirse */
+.bc-seam {
+  position: fixed;
+  top: 50%; left: 0; right: 0;
+  height: 2px;
+  translate: 0 -50%;
+  z-index: 21;
+  background: linear-gradient(90deg, transparent, #ff2a3a 20%, #fff0f0 50%, #ff2a3a 80%, transparent);
+  box-shadow: 0 0 18px 3px rgba(255, 30, 50, .7);
+  transform: scaleX(0);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .8s cubic-bezier(.65, 0, .35, 1), opacity .3s ease;
+}
+
+.bc-phase-seam .bc-seam { transform: scaleX(1); opacity: 1; }
+.bc-phase-reveal .bc-seam { transform: scaleX(1); opacity: 0; transition: opacity .5s ease .1s; }
+
+/* Saludo en la oscuridad */
+.bc-greeting {
+  position: fixed;
+  top: 50%; left: 50%;
+  translate: -50% -50%;
+  z-index: 22;
+  width: min(92vw, 900px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .7s ease;
+}
+
+.bc-greeting-kicker {
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: clamp(.68rem, 2vw, .82rem);
+  letter-spacing: .5em;
+  color: #7d6f64;
+}
+
+.bc-greeting-title {
+  margin: 0;
+  font-family: 'UnifrakturMaguntia', 'Pirata One', serif;
+  font-size: clamp(2.8rem, 10vw, 6.6rem);
+  line-height: 1.02;
+  color: #a10d14;
+  text-shadow: 0 0 30px rgba(160, 0, 16, .5), 3px 3px 0 #000;
+}
+
+.bc-greeting-sub {
+  font-size: clamp(.9rem, 2.4vw, 1.1rem);
+  color: rgba(207, 196, 182, .6);
+}
+
+.bc-phase-greeting .bc-greeting { opacity: 1; }
+.bc-phase-greeting .bc-greeting-kicker { animation: bc-rise 1.4s .1s both cubic-bezier(.2, .8, .2, 1); }
+.bc-phase-greeting .bc-greeting-title { animation: bc-materialize 2.2s .35s both cubic-bezier(.2, .8, .2, 1); }
+.bc-phase-greeting .bc-greeting-sub { animation: bc-rise 1.4s 1.3s both cubic-bezier(.2, .8, .2, 1); }
+
+@keyframes bc-materialize {
+  0% { opacity: 0; letter-spacing: .25em; filter: blur(14px); }
+  100% { opacity: 1; letter-spacing: 0; filter: blur(0); }
+}
+
+@keyframes bc-rise {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* Detrás del telón ya no hace falta la escena: queda transparente para revelar el cumpleaños */
+.bc-scene-hidden { background: transparent; overflow: hidden; pointer-events: none; }
+.bc-scene-hidden::after,
+.bc-scene-hidden::before { display: none; }
+.bc-scene-hidden > :not(.bc-curtain):not(.bc-seam):not(.bc-greeting) { visibility: hidden; }
+
 @media (prefers-reduced-motion: reduce) {
   .bc-root *, .bc-root { animation: none !important; }
+  .bc-greeting-title, .bc-greeting-kicker, .bc-greeting-sub { opacity: 1; }
   .bc-drip { transform: none; }
   .bc-drop, .bc-subliminal { display: none; }
 }

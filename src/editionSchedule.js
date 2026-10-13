@@ -11,3 +11,9 @@ export function getEdition(now = new Date()) {
   if (now < BIRTHDAY_END) return 'cumple'
   return 'clasica'
 }
+
+// ?edicion=contador&prueba=15 ensaya la cuenta final y la transición en 15 segundos.
+export function getCountdownTarget() {
+  const seconds = Number(new URLSearchParams(window.location.search).get('prueba'))
+  return seconds > 0 ? new Date(Date.now() + seconds * 1000) : BIRTHDAY_START
+}

@@ -319,26 +319,61 @@ const EMBERS = Array.from({ length: 14 }, (_, i) => ({
   size: 1 + (i % 2),
 }));
 
-export default function BirthdayCountdown({ target, onFinish }) {
+// Últimos segundos: todo desaparece y queda un número gigante que late
+const FINAL_MS = 10000;
+
+// Escena de medianoche (ms desde el cero)
+const MIDNIGHT_TIMELINE = [
+  [500, 'bell'],
+  [2000, 'greeting'],
+  [5400, 'seam'],
+  [6300, 'reveal'],
+  [8000, 'finish'],
+];
+
+export default function BirthdayCountdown({ target, onPrepare, onFinish }) {
   const [left, setLeft] = useState(() => getRemaining(target));
   const [entered, setEntered] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [phase, setPhase] = useState('count');
   const ambience = useRef(null);
+  const prepared = useRef(false);
   const awakening = left.ms === 0;
+  const final = left.ms > 0 && left.ms <= FINAL_MS;
+  const finalSecond = Math.ceil(left.ms / 1000);
 
+  // Tic cada 250 ms para que el cambio de segundo caiga justo en su momento
   useEffect(() => {
-    const id = setInterval(() => setLeft(getRemaining(target)), 1000);
+    const id = setInterval(() => setLeft(getRemaining(target)), 250);
     return () => clearInterval(id);
   }, [target]);
 
   useEffect(() => () => ambience.current?.stop(), []);
 
-  // Al llegar a cero: la música se apaga, las velas también, y se abre la edición del cumpleaños
+  // Monta la edición del cumpleaños debajo del telón antes del cero, para revelarla sin cortes
+  useEffect(() => {
+    if ((final || awakening) && !prepared.current) {
+      prepared.current = true;
+      onPrepare?.();
+    }
+  }, [final, awakening, onPrepare]);
+
+  // Un latido por segundo en la cuenta final, cada vez más fuerte
+  useEffect(() => {
+    if (!final) return;
+    ambience.current?.heartbeat(1 - (finalSecond - 1) / 9);
+  }, [final, finalSecond]);
+
   useEffect(() => {
     if (!awakening) return;
-    ambience.current?.stop(2.6);
-    const id = setTimeout(onFinish, 3200);
-    return () => clearTimeout(id);
+    setPhase('midnight');
+    ambience.current?.silence();
+    const timers = MIDNIGHT_TIMELINE.map(([ms, step]) => setTimeout(() => {
+      if (step === 'bell') ambience.current?.bell();
+      else if (step === 'finish') onFinish();
+      else setPhase(step);
+    }, ms));
+    return () => timers.forEach(clearTimeout);
   }, [awakening, onFinish]);
 
   const enter = () => {
@@ -359,8 +394,10 @@ export default function BirthdayCountdown({ target, onFinish }) {
     ['Segundos', left.seconds],
   ];
 
+  const sceneHidden = ['greeting', 'seam', 'reveal'].includes(phase);
+
   return (
-    <main className={`bc-root${awakening ? ' bc-awakening' : ''}${entered ? ' bc-entered' : ''}`}>
+    <main className={`bc-root bc-phase-${phase}${final ? ' bc-final' : ''}${sceneHidden ? ' bc-scene-hidden' : ''}`}>
       <SceneDefs />
 
       <Splatter seed={7} className="bc-splatter-a" />
@@ -394,9 +431,7 @@ export default function BirthdayCountdown({ target, onFinish }) {
 
       <section className="bc-content">
         <span className="bc-kicker">XIII · X · MMXXVI</span>
-        <h1 className="bc-title">
-          {awakening ? 'Que comience el ritual' : 'El ritual comienza a medianoche'}
-        </h1>
+        <h1 className="bc-title">El ritual comienza a medianoche</h1>
 
         {!awakening && (
           <>
@@ -417,18 +452,29 @@ export default function BirthdayCountdown({ target, onFinish }) {
 
         <div className="bc-altar">
           <Candle side="left" top={92} />
-          <p className="bc-oath">
-            {awakening
-              ? 'Las velas se apagan. Ratita, el inframundo entero te celebra.'
-              : 'Enciende las velas, Ratita. A las doce la oscuridad será toda tuya.'}
-          </p>
+          <p className="bc-oath">Enciende las velas, Ratita. A las doce la oscuridad será toda tuya.</p>
           <Candle side="right" top={132} />
         </div>
       </section>
 
+      {final && (
+        <div className="bc-final-count" key={finalSecond} aria-live="assertive">{finalSecond}</div>
+      )}
+
       <span className="bc-subliminal" aria-hidden="true">no mires atrás</span>
       <div className="bc-grain" aria-hidden="true" />
       <div className="bc-flicker" aria-hidden="true" />
+
+      {/* Escena de medianoche: destello, telón negro, saludo y apertura */}
+      <div className="bc-flash" aria-hidden="true" />
+      <div className="bc-curtain bc-curtain-top" aria-hidden="true" />
+      <div className="bc-curtain bc-curtain-bottom" aria-hidden="true" />
+      <div className="bc-seam" aria-hidden="true" />
+      <div className="bc-greeting" aria-live="polite">
+        <span className="bc-greeting-kicker">Medianoche · XIII · X</span>
+        <p className="bc-greeting-title">Feliz cumpleaños, Ratita</p>
+        <span className="bc-greeting-sub">La oscuridad entera se inclina ante ti</span>
+      </div>
 
       {entered && !awakening && (
         <button type="button" className="bc-mute" onClick={toggleMute}>
@@ -436,7 +482,7 @@ export default function BirthdayCountdown({ target, onFinish }) {
         </button>
       )}
 
-      {!entered && !awakening && (
+      {!entered && !awakening && !final && (
         <div className="bc-gate" onClick={enter}>
           <span className="bc-gate-warning">Advertencia</span>
           <p className="bc-gate-title">Entra, si te atreves</p>

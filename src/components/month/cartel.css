@@ -1,0 +1,65 @@
+/* ==========================================
+   CARTEL DE BAILE · piezas compartidas del primer mes
+   Inspirado en los carteles serigrafiados que se pegan en la calle:
+   papel barato, tinta fluorescente, letras gordas y estrellas.
+   ========================================== */
+:root {
+  --c-paper: #f2ead8;
+  --c-paper-shade: #e3d7bd;
+  --c-ink: #141010;
+  --c-pink: #ff2d87;
+  --c-yellow: #ffe100;
+  --c-green: #00c96b;
+  --c-blue: #1f8bff;
+  --c-red: #e3120b;
+  --c-rainbow: linear-gradient(180deg, var(--c-pink) 0%, #ff7a3d 30%, var(--c-yellow) 55%, var(--c-green) 100%);
+}
+
+/* Papel con grano, manchas de humedad y arrugas de engrudo */
+.cartel-paper {
+  background-color: var(--c-paper);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .08  0 0 0 0 .06  0 0 0 0 .04  0 0 0 .32 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+    radial-gradient(ellipse 40% 30% at 12% 88%, rgba(160, 120, 60, .16), transparent 70%),
+    radial-gradient(ellipse 30% 22% at 90% 10%, rgba(160, 120, 60, .12), transparent 70%),
+    linear-gradient(97deg, transparent 47%, rgba(0, 0, 0, .05) 49.5%, rgba(255, 255, 255, .35) 50.5%, transparent 53%),
+    linear-gradient(181deg, transparent 63%, rgba(0, 0, 0, .04) 64.5%, rgba(255, 255, 255, .3) 65.5%, transparent 67%);
+  color: var(--c-ink);
+}
+
+/* Letra rellena con el degradado fluorescente, contorno negro y sombra dura */
+.cartel-rainbow {
+  background: var(--c-rainbow);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: .045em var(--c-ink);
+  paint-order: stroke fill;
+  filter: drop-shadow(.06em .06em 0 var(--c-ink));
+}
+
+/* Estrella de "¡ENTRADA LIBRE!" */
+.cartel-burst {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  text-align: center;
+  clip-path: polygon(50.0% 0.0%, 55.8% 9.4%, 64.1% 2.0%, 67.0% 12.7%, 77.0% 7.9%, 76.8% 19.0%, 87.8% 17.3%, 84.5% 27.8%, 95.5% 29.2%, 89.3% 38.4%, 99.5% 42.9%, 91.0% 50.0%, 99.5% 57.1%, 89.3% 61.6%, 95.5% 70.8%, 84.5% 72.2%, 87.8% 82.7%, 76.8% 81.0%, 77.0% 92.1%, 67.0% 87.3%, 64.1% 98.0%, 55.8% 90.6%, 50.0% 100.0%, 44.2% 90.6%, 35.9% 98.0%, 33.0% 87.3%, 23.0% 92.1%, 23.2% 81.0%, 12.2% 82.7%, 15.5% 72.2%, 4.5% 70.8%, 10.7% 61.6%, 0.5% 57.1%, 9.0% 50.0%, 0.5% 42.9%, 10.7% 38.4%, 4.5% 29.2%, 15.5% 27.8%, 12.2% 17.3%, 23.2% 19.0%, 23.0% 7.9%, 33.0% 12.7%, 35.9% 2.0%, 44.2% 9.4%);
+}
+
+/* Trama de puntos de serigrafía */
+.cartel-halftone {
+  background-image: radial-gradient(rgba(20, 16, 16, .22) 1.1px, transparent 1.6px);
+  background-size: 7px 7px;
+}
+
+/* Cinta canela */
+.cartel-tape {
+  position: absolute;
+  width: 110px;
+  height: 30px;
+  background: rgba(214, 190, 140, .78);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .18);
+  clip-path: polygon(2% 8%, 98% 0, 100% 90%, 0 100%);
+  pointer-events: none;
+}

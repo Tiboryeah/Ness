@@ -6,8 +6,11 @@ import CardGallery from './components/CardGallery';
 import { playChimeSynth } from './utils/audio';
 import { Heart, Star, Sparkles } from 'lucide-react';
 import { PLAYLIST_KEYS, TRACK_METADATA } from './data/playlist';
+import { OCCASIONS } from './data/occasions';
+import Moments from './components/Moments';
 
-export default function App() {
+export default function App({ occasion = 'siempre' }) {
+  const copy = OCCASIONS[occasion];
   const [started, setStarted] = useState(false);
   
   // Music Player States
@@ -15,7 +18,7 @@ export default function App() {
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(25);
   const [statusText, setStatusText] = useState('Pausado');
-  const [currentTrack, setCurrentTrack] = useState('loveofmylife'); // Canción inicial del cumpleaños: Queen - Love of My Life
+  const [currentTrack, setCurrentTrack] = useState(copy.initialTrack);
   const audioRef = useRef(null);
 
   // Falling particles / Confetti rain
@@ -25,9 +28,9 @@ export default function App() {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = 0.25;
-      audioRef.current.src = TRACK_METADATA.loveofmylife.url;
+      audioRef.current.src = TRACK_METADATA[copy.initialTrack].url;
     }
-  }, []);
+  }, [copy.initialTrack]);
 
   // Unlock and play audio + celebrate
   const handleStart = () => {
@@ -41,10 +44,12 @@ export default function App() {
         console.warn("Audio play on start prevented by browser:", err);
       });
     }
-    // Launch celebratory birthday shower upon entering
-    setTimeout(() => {
-      triggerCandyRain();
-    }, 400);
+    // En el cumpleaños se entra con lluvia de celebración
+    if (copy.celebrateOnStart) {
+      setTimeout(() => {
+        triggerCandyRain();
+      }, 400);
+    }
   };
 
   const togglePlay = () => {
@@ -156,7 +161,7 @@ export default function App() {
       <ParticleBackground />
 
       {/* 2. Welcome Landing Portal */}
-      {!started && <Landing onStart={handleStart} />}
+      {!started && <Landing copy={copy.landing} onStart={handleStart} />}
 
       {/* 3. Main content */}
       {started && (
@@ -175,44 +180,22 @@ export default function App() {
             onNextTrack={handleNextTrack}
             onPrevTrack={handlePrevTrack}
             onTriggerCelebration={triggerCandyRain}
+            copy={copy.header}
           />
 
           <main className="container">
-            {/* Intro Welcome Card with Birthday & Engagement dedication */}
+            {/* Prólogo */}
             <section className="intro-card glass">
               <span className="intro-index" aria-hidden="true">00</span>
               <div className="intro-badge">
                 <Sparkles size={16} />
-                <span>13 de Octubre · Edición Prometida</span>
+                <span>{copy.intro.badge}</span>
               </div>
-              <h2 className="intro-title">
-                Hay universos que<br />merecen ser <em>celebrados.</em>
-              </h2>
+              <h2 className="intro-title">{copy.intro.title}</h2>
               <div className="intro-text">
-                <p className="intro-birthday-callout">
-                  <strong>¡Feliz Cumpleaños, mi amada Ratita!</strong> Hoy es 13 de octubre, y entre todas las fechas posibles, esta es la más sagrada para mí: el día en que nació la mujer que ilumina mi vida entera, y que ahora tengo el honor inmenso de llamar <strong>mi prometida</strong>.
-                </p>
-                <p>
-                  Ratita, entre estas sombras he dejado escondidos pequeños fragmentos de tu mundo.
-                </p>
-                <p>
-                  El fulgor ámbar de criaturas de ojos felinos, frutos dulces que guardan verano bajo la piel, notas que desgarran el silencio entre guitarras y metales, y melodías que sólo tú sabrías reconocer aun con los ojos cerrados.
-                </p>
-                <p>
-                  También habitan aquí ciertas historias nacidas entre la oscuridad de Tokio, flores que parecen conocer secretos que nunca se pronuncian y pequeños rastros de esa ternura tuya que, incluso entre lo sombrío, insiste en permanecer intacta.
-                </p>
-                <p className="intro-accent-paragraph">
-                  Hoy no solo celebro tu vida: celebro nuestro 'sí' y la promesa de caminar juntos hasta el último amanecer.
-                </p>
-                <p>
-                  Cada detalle guarda una pista, un recuerdo, una melodía y un pedazo de mi alma dedicado a ti.
-                </p>
-                <p className="intro-whisper">
-                  Pide un deseo frente al pastel, escucha nuestra música y disfruta tu rincón...
-                </p>
-                <p className="intro-closing-phrase">
-                  Porque todo lo hermoso que existe en este lugar fue hecho para hacerte sonreír.
-                </p>
+                {copy.intro.paragraphs.map((p, i) => (
+                  <p key={i} className={p.className}>{p.text}</p>
+                ))}
               </div>
             </section>
 
@@ -224,15 +207,20 @@ export default function App() {
               onTrackChange={handleTrackChange}
               onTriggerCandyRain={triggerCandyRain}
               onSecretUnlock={handleSecretUnlock}
+              copy={copy.gallery}
+              showBirthdayCard={copy.showBirthdayCard}
             />
+
+            {copy.showMoments && <Moments />}
 
             <aside className="gothic-encouragement" aria-label="Una nota para Ratita">
               <span className="gothic-note-wing wing-left" aria-hidden="true">†</span>
               <div className="gothic-note-inner">
-                <span className="gothic-note-kicker">DOS CERTEZAS PARA GUARDAR</span>
-                <p>“Estoy seguro que puedes entrar a estudiar música en Bellas Artes, confía en ti.”</p>
-                <p className="gothic-fiancee-quote">“Y tengo la certeza más hermosa de todas: eres el amor de mi vida, mi mejor decisión y la prometida más increíble del mundo.”</p>
-                <span className="gothic-note-sign">— Tibo, tu prometido</span>
+                <span className="gothic-note-kicker">{copy.note.kicker}</span>
+                {copy.note.quotes.map((quote, i) => (
+                  <p key={quote} className={i > 0 ? 'gothic-fiancee-quote' : undefined}>{quote}</p>
+                ))}
+                <span className="gothic-note-sign">{copy.note.sign}</span>
               </div>
               <span className="gothic-note-wing wing-right" aria-hidden="true">†</span>
             </aside>
@@ -245,14 +233,12 @@ export default function App() {
                 <strong>ISSUE<br />MMXXVI</strong>
               </div>
               <div className="footer-main-copy">
-                <span className="footer-kicker">13 DE OCTUBRE · CUMPLEAÑOS & COMPROMISO</span>
-                <p className="footer-signature">
-                  Hecho para <strong>Ratita</strong>, mi Reina y Futura Esposa<br />con todo el amor infinito de <strong>Tibo</strong>.
-                </p>
+                <span className="footer-kicker">{copy.footer.kicker}</span>
+                <p className="footer-signature">{copy.footer.signature}</p>
               </div>
               <div className="footer-stamp" aria-hidden="true">
                 <Star size={19} fill="currentColor" />
-                <span>FOREVER<br />NOISE</span>
+                <span>{copy.footer.stamp}</span>
               </div>
               <span className="footer-scribble" aria-hidden="true">hasta el último amanecer</span>
             </footer>

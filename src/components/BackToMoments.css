@@ -1,0 +1,27 @@
+.back-to-moments {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2147483500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: .74rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #e9dfd3;
+  background: rgba(8, 4, 5, .78);
+  border: 1px solid rgba(179, 0, 27, .55);
+  backdrop-filter: blur(6px);
+  transition: background .25s ease, border-color .25s ease;
+}
+
+.back-to-moments:hover,
+.back-to-moments:focus-visible {
+  background: #5a0006;
+  border-color: #ff1f3d;
+  outline: none;
+}

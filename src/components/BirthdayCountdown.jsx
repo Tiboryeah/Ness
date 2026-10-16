@@ -1,19 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { startRitualAmbience } from '../utils/ritualAmbience';
+import { getRemaining, pad } from '../utils/countdown';
 import './BirthdayCountdown.css';
-
-const pad = (n) => String(n).padStart(2, '0');
-
-function getRemaining(target) {
-  const ms = Math.max(0, target.getTime() - Date.now());
-  return {
-    ms,
-    days: Math.floor(ms / 86400000),
-    hours: Math.floor(ms / 3600000) % 24,
-    minutes: Math.floor(ms / 60000) % 60,
-    seconds: Math.floor(ms / 1000) % 60,
-  };
-}
 
 // Aleatorio con semilla: las formas orgánicas salen iguales en cada render
 function seeded(seed) {

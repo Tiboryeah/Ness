@@ -16,27 +16,31 @@ export default function CardGallery({
   currentTrack, 
   onTrackChange, 
   onTriggerCandyRain, 
-  onSecretUnlock 
+  onSecretUnlock,
+  copy,
+  showBirthdayCard
 }) {
   return (
     <section className="gallery-section">
       <div className="gallery-header-block text-center">
-        <span className="section-kicker">Colección Especial · 01—10</span>
+        <span className="section-kicker">{copy.kicker}</span>
         <h2 className="section-title">
           El mundo de<br /><em>Ratita</em>
         </h2>
         <p className="section-subtitle">
-          Diez fragmentos interactivos. Celebrando tu cumpleaños número especial y el comienzo de nuestro para siempre.
+          {copy.subtitle}
         </p>
       </div>
 
       <div className="cards-grid">
-        <BirthdayEngagementCard 
-          onTriggerBirthdayRain={onTriggerCandyRain}
-          onPlaySong={(track) => onTrackChange(track, true)}
-          isPlaying={isPlaying}
-          currentTrack={currentTrack}
-        />
+        {showBirthdayCard && (
+          <BirthdayEngagementCard 
+            onTriggerBirthdayRain={onTriggerCandyRain}
+            onPlaySong={(track) => onTrackChange(track, true)}
+            isPlaying={isPlaying}
+            currentTrack={currentTrack}
+          />
+        )}
 
         <CatCard />
         <FruitCard />

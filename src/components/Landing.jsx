@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ArrowDownRight, Asterisk, KeyRound } from 'lucide-react';
+import { ArrowDownRight, KeyRound } from 'lucide-react';
 import { playPopSynth } from '../utils/audio';
 
-export default function Landing({ onStart }) {
+export default function Landing({ copy, onStart }) {
   const [isFading, setIsFading] = useState(false);
 
   const handleStart = () => {
@@ -24,8 +24,8 @@ export default function Landing({ onStart }) {
         </div>
 
         <div className="landing-topline goth-landing-topline">
-          <span>† 13.10 · ISSUE MMXXVI · UNHOLY ROMANCE</span>
-          <span>SIN CENSURA †</span>
+          <span>{copy.topline[0]}</span>
+          <span>{copy.topline[1]}</span>
         </div>
 
         <div className="landing-monogram goth-landing-monogram" aria-hidden="true">
@@ -34,15 +34,15 @@ export default function Landing({ onStart }) {
         </div>
 
         <div className="landing-birthday-pill goth-birthday-pill">
-          <span>† PUNK PROMISE // PARA MI PROMETIDA & REINA ✟</span>
+          <span>{copy.pill}</span>
         </div>
 
         <h1 className="landing-title goth-landing-title">
-          ¡Feliz Cumpleaños,<br /><span className="landing-name-highlight goth-name-highlight">Ratita!</span>
+          {copy.titleLead}<br /><span className="landing-name-highlight goth-name-highlight">{copy.titleName}</span>
         </h1>
 
         <p className="landing-subtitle">
-          Guitarras desgarradoras, flores oscuras, criaturas en sombras y un pacto de amor eterno. Hoy celebramos tu vida y el primer cumpleaños como prometidos.
+          {copy.subtitle}
         </p>
 
         <div className="landing-tibo-badge goth-tibo-badge"><span>De <strong>Tibo</strong> · Hasta el último amanecer †</span></div>
@@ -53,12 +53,12 @@ export default function Landing({ onStart }) {
             type="button" 
             className="mystic-keyhole-btn birthday-entry-btn goth-entry-btn"
             onClick={handleStart}
-            aria-label="Abrir el ritual de celebración de Ratita"
+            aria-label={copy.entryLabel}
           >
             <KeyRound size={27} className="key-icon-pulse" />
           </button>
           <span className="portal-hint goth-portal-hint">
-            Entrar al ritual nocturno † <ArrowDownRight size={15} />
+            {copy.entryHint} <ArrowDownRight size={15} />
           </span>
         </div>
       </div>

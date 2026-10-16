@@ -1,6 +1,5 @@
 import React from 'react';
 import MusicPlayer from './MusicPlayer';
-import { Sparkles, PartyPopper, Crown } from 'lucide-react';
 
 export default function Header({ 
   isPlaying, 
@@ -15,7 +14,8 @@ export default function Header({
   onTrackChange, 
   onNextTrack, 
   onPrevTrack,
-  onTriggerCelebration
+  onTriggerCelebration,
+  copy
 }) {
   return (
     <header className="header-glass">
@@ -23,10 +23,10 @@ export default function Header({
         <div className="brand-badge goth-brand-badge">
           <span className="goth-brand-cross">†</span>
           <span className="brand-name">Ratita</span>
-          <span className="brand-fiancee-tag goth-fiancee-tag">✟ Prometida</span>
+          <span className="brand-fiancee-tag goth-fiancee-tag">{copy.tag}</span>
         </div>
         <div className="brand-subtext-group">
-          <span className="brand-subtext goth-brand-subtext">13.10 // Ritual de Cumpleaños</span>
+          <span className="brand-subtext goth-brand-subtext">{copy.subtext}</span>
           {onTriggerCelebration && (
             <button 
               type="button" 
